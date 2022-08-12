@@ -8,32 +8,30 @@ def read_file(f, count):
     
     list_book = []
     while i <= count:
-        line = f.readline().split('|')
+        line = f.readline().strip('\n').split('|')
         #print(line)
         i += 1
         if len(line) == 3:
             book = {}
-            book['ingredient_name'] = line[0].strip('\n')
-            book['quantity'] = line[1].strip('\n')
-            book['measure'] = line[2].strip('\n')
-            #print(book)
+            book['ingredient_name'] = line[0]#.strip('\n')
+            book['quantity'] = line[1]#.strip('\n')
+            book['measure'] = line[2]#.strip('\n')
             list_book.append(book)
-            #print(list_book)
+            #pprint(list_book)
                     
     return list_book
 
 with open('recipes.txt', encoding='utf-8') as f:
-    f.seek(0)
-    name = f.readline().strip('\n')
-    #print(name)
-    count = int(f.readline())
-    cook_book[name] = read_file(f,count)
-    #pprint(cook_book)
-    
-    name = f.readline().strip('\n')
-    #print(name)
-    count = int(f.readline())
-    cook_book[name] = read_file(f,count)
+    a = True
+    while a:
+        name = f.readline().strip('\n')
+        #print(name)
+        if name:
+            count = int(f.readline())
+            cook_book[name] = read_file(f,count)
+        else:
+            a = False
+
     pprint(cook_book)
 
 
